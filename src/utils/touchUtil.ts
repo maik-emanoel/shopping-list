@@ -1,0 +1,1 @@
+export const touchIsSupported = window.matchMedia('(pointer: coarse)').matches
