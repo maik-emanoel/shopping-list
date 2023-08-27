@@ -12,3 +12,9 @@
     background: transparent;
   }
 }
+
+@layer components {
+  .focusInput {
+    @apply focus:outline-[1px] focus:outline-purpleLight
+  }
+}
