@@ -84,18 +84,18 @@ export function Form() {
         <input
           type="text"
           id="itemInput"
-          className="h-10 p-3 bg-gray-500 rounded-md border-[1px] border-gray-300 outline-none focusInput"
+          className="h-10 p-3 bg-gray-500 rounded-md border border-gray-300 outline-none focusInput"
         />
       </div>
 
       <div className="max-w-[150px] w-full flex flex-col gap-2">
         <Label name="Quantidade" htmlFor="quantity" />
 
-        <div className="flex rounded-md h-10 divide-y-[1px] divide-gray-300 border-[1px] border-gray-300">
+        <div className="flex rounded-md h-10 divide-y-[1px] divide-gray-300 border border-gray-300">
           <input
             type="text"
             id="quantity"
-            className="w-full h-10 rounded-l-md p-3 bg-gray-500 outline-none focus:border-[1px] focus:border-purpleLight"
+            className="w-full h-10 rounded-l-md p-3 bg-gray-500 outline-none focus:border focus:border-purpleLight"
             autoComplete="off"
             maxLength={3}
             onKeyDown={(e) => onlyNumbers(e)}
@@ -106,7 +106,7 @@ export function Form() {
             components={{ DropdownIndicator }}
             unstyled={true}
             classNames={{
-              container: () => "border-[1px] border-gray-300",
+              container: () => "border border-gray-300",
               control: () =>
                 "bg-gray-400 text-gray-200 flex items-center justify-between w-[72px] h-10 px-3 rounded-r-md text-xs uppercase",
               dropdownIndicator: () =>
