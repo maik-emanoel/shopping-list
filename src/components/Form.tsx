@@ -7,13 +7,34 @@ import {
   Plus,
   Sandwich,
 } from "lucide-react";
-import Select, { SingleValue, components } from "react-select";
+import Select, { components } from "react-select";
 import { onlyNumbers } from "../utils/onlyNumbers";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { touchIsSupported } from "../utils/touchUtil";
 import { Label } from "./Label";
 
-export function Form() {
+interface FormProps {
+  setItemName: Dispatch<SetStateAction<string>>;
+  setItemQuantity: Dispatch<SetStateAction<number>>;
+  setItemTypeOfQuantity: Dispatch<SetStateAction<string>>;
+  setItemCategory: Dispatch<SetStateAction<string>>;
+
+  itemName: string;
+  itemQuantity: number;
+  selectRef: React.MutableRefObject<null>
+  handleCreateItem: () => void;
+}
+
+export function Form({
+  setItemName,
+  setItemQuantity,
+  setItemTypeOfQuantity,
+  setItemCategory,
+  itemName,
+  itemQuantity,
+  selectRef,
+  handleCreateItem,
+}: FormProps) {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
 
   const optionsQuantity = [
@@ -71,12 +92,6 @@ export function Form() {
     );
   };
 
-  function handleChange(
-    selectedOption: SingleValue<{ value: string; label: string }>
-  ) {
-    console.log(selectedOption);
-  }
-
   return (
     <form className="text-white flex items-center gap-3">
       <div className="flex flex-col gap-2 flex-1">
@@ -85,6 +100,8 @@ export function Form() {
           type="text"
           id="itemInput"
           className="h-10 p-3 bg-gray-500 rounded-md border border-gray-300 outline-none focusInput"
+          onChange={(e) => setItemName(e.target.value)}
+          value={itemName}
         />
       </div>
 
@@ -99,10 +116,22 @@ export function Form() {
             autoComplete="off"
             maxLength={3}
             onKeyDown={(e) => onlyNumbers(e)}
+            onChange={(e) => {
+              if (e.target.value == "") {
+                setItemQuantity(Number(""));
+                return;
+              }
+              setItemQuantity(parseInt(e.target.value));
+            }}
+            value={itemQuantity}
           />
           <Select
             options={optionsQuantity}
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => {
+              if (e) {
+                setItemTypeOfQuantity(e.value);
+              }
+            }}
             components={{ DropdownIndicator }}
             unstyled={true}
             classNames={{
@@ -132,6 +161,11 @@ export function Form() {
           <Select
             unstyled
             options={optionsCategory}
+            onChange={(e) => {
+              if (e) {
+                setItemCategory(e.value);
+              }
+            }}
             placeholder="Selecione"
             classNames={{
               control: () =>
@@ -140,16 +174,25 @@ export function Form() {
               dropdownIndicator: () =>
                 `${isSelectOpen ? "rotate-180" : "rotate-0"}`,
               option: () =>
-                `p-3 bg-gray-500 text-sm tracking-[0.42px] ${touchIsSupported ? "" : "hover:bg-gray-300"}`,
+                `p-3 bg-gray-500 text-sm tracking-[0.42px] ${
+                  touchIsSupported ? "" : "hover:bg-gray-300"
+                }`,
               menuList: () =>
                 "divide-y-[1px] divide-gray-300 border border-gray-300 rounded-md mt-1",
             }}
             components={{ DropdownIndicator, Option }}
+            ref={selectRef}
           />
         </div>
       </div>
 
-      <button className="w-10 h-10 grid place-items-center bg-purpleNormal rounded-full flex-shrink-0 self-end">
+      <button
+        className="w-10 h-10 grid place-items-center bg-purpleNormal rounded-full flex-shrink-0 self-end"
+        onClick={(e) => {
+          e.preventDefault()
+          handleCreateItem()
+        }}
+      >
         <Plus />
       </button>
     </form>
