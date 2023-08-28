@@ -53,7 +53,7 @@ export function App() {
         className="w-full h-[185px] absolute top-0 md:object-cover md:object-left-top"
       />
 
-      <main className="z-10 relative mx-auto max-w-[720px] my-20 w-[90%]">
+      <main className="z-10 relative mx-auto max-w-[720px] pt-20 mb-20 w-[90%]">
         <header>
           <h1 className="text-gray-100 text-2xl font-bold tracking-[0.72px] mb-8">
             Lista de Compras
