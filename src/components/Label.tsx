@@ -4,12 +4,16 @@ interface LabelProps {
   isCategory?: boolean;
 }
 
-export function Label({ name, htmlFor, isCategory }: LabelProps) {
+export function Label({
+  name,
+  htmlFor,
+  isCategory,
+}: LabelProps) {
   return (
     <label
       htmlFor={htmlFor}
       data-iscategory={isCategory}
-      className="text-gray-200 text-xs leading-3 tracking-[0.36px] data-[iscategory=true]:text-gray-800"
+      className="text-gray-200 text-xs leading-3 tracking-[0.36px] data-[iscategory=true]:text-gray-800 group-focus-within:text-purpleLight"
     >
       {name}
     </label>

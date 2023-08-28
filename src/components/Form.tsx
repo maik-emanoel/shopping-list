@@ -21,7 +21,7 @@ interface FormProps {
 
   itemName: string;
   itemQuantity: number;
-  selectRef: React.MutableRefObject<null>
+  selectRef: React.MutableRefObject<null>;
   handleCreateItem: () => void;
 }
 
@@ -35,7 +35,8 @@ export function Form({
   selectRef,
   handleCreateItem,
 }: FormProps) {
-  const [isSelectOpen, setIsSelectOpen] = useState(false);
+  const [isSelectQuantityOpen, setIsSelectQuantityOpen] = useState(false);
+  const [isSelectCategoryOpen, setIsSelectCategoryOpen] = useState(false);
 
   const optionsQuantity = [
     { value: "unidade", label: "Un." },
@@ -94,21 +95,21 @@ export function Form({
 
   return (
     <form className="text-white flex items-center gap-3">
-      <div className="flex flex-col gap-2 flex-1">
-        <Label name="Item" htmlFor="itemInput" />
+      <div className="group flex flex-col gap-2 flex-1">
+        <Label name="Item" htmlFor="itemNameInput" />
         <input
           type="text"
-          id="itemInput"
+          id="itemNameInput"
           className="h-10 p-3 bg-gray-500 rounded-md border border-gray-300 outline-none focusInput"
           onChange={(e) => setItemName(e.target.value)}
           value={itemName}
         />
       </div>
 
-      <div className="max-w-[150px] w-full flex flex-col gap-2">
+      <div className="group max-w-[150px] w-full flex flex-col gap-2">
         <Label name="Quantidade" htmlFor="quantity" />
 
-        <div className="flex rounded-md h-10 divide-y-[1px] divide-gray-300 border border-gray-300">
+        <div className="flex rounded-md h-10 border border-gray-300">
           <input
             type="text"
             id="quantity"
@@ -135,11 +136,14 @@ export function Form({
             components={{ DropdownIndicator }}
             unstyled={true}
             classNames={{
-              container: () => "border border-gray-300",
               control: () =>
-                "bg-gray-400 text-gray-200 flex items-center justify-between w-[72px] h-10 px-3 rounded-r-md text-xs uppercase",
+                "bg-gray-400 text-gray-200 flex items-center justify-between w-[72px] h-10 px-3 rounded-r-md text-xs uppercase border border-gray-300 focus-within:border-purpleLight",
               dropdownIndicator: () =>
-                `${isSelectOpen ? "rotate-180" : "rotate-0"}`,
+                `${
+                  isSelectQuantityOpen
+                    ? "rotate-180 text-purpleLight"
+                    : "rotate-0"
+                }`,
               option: () =>
                 `p-3 bg-gray-500 text-sm tracking-[0.42px] ${
                   touchIsSupported ? "" : "hover:bg-gray-300"
@@ -148,13 +152,13 @@ export function Form({
                 "divide-y-[1px] divide-gray-300 border border-gray-300 rounded-md mt-1",
             }}
             defaultValue={optionsQuantity[0]}
-            onMenuOpen={() => setIsSelectOpen(true)}
-            onMenuClose={() => setIsSelectOpen(false)}
+            onMenuOpen={() => setIsSelectQuantityOpen(true)}
+            onMenuClose={() => setIsSelectQuantityOpen(false)}
           />
         </div>
       </div>
 
-      <div className="max-w-[179px] w-full flex flex-col gap-2">
+      <div className="group max-w-[179px] w-full flex flex-col gap-2">
         <Label name="Categoria" htmlFor="category" isCategory />
 
         <div className="h-10">
@@ -169,10 +173,14 @@ export function Form({
             placeholder="Selecione"
             classNames={{
               control: () =>
-                "bg-gray-400 text-gray-200 tracking-[0.42px] flex items-center justify-between h-full px-3 rounded-md text-xs",
+                "bg-gray-400 text-gray-200 tracking-[0.42px] flex items-center justify-between h-full px-3 rounded-md text-xs border border-gray-300 focus-within:border-purpleLight",
               container: () => "h-full",
               dropdownIndicator: () =>
-                `${isSelectOpen ? "rotate-180" : "rotate-0"}`,
+                `${
+                  isSelectCategoryOpen
+                    ? "rotate-180 text-purpleLight"
+                    : "rotate-0"
+                }`,
               option: () =>
                 `p-3 bg-gray-500 text-sm tracking-[0.42px] ${
                   touchIsSupported ? "" : "hover:bg-gray-300"
@@ -182,15 +190,18 @@ export function Form({
             }}
             components={{ DropdownIndicator, Option }}
             ref={selectRef}
+            onMenuOpen={() => setIsSelectCategoryOpen(true)}
+            onMenuClose={() => setIsSelectCategoryOpen(false)}
           />
         </div>
       </div>
 
       <button
-        className="w-10 h-10 grid place-items-center bg-purpleNormal rounded-full flex-shrink-0 self-end"
+        data-istouchsupported={touchIsSupported}
+        className="w-10 h-10 grid place-items-center bg-purpleNormal rounded-full flex-shrink-0 self-end data-[istouchsupported=false]:hover:bg-purpleDark transition-colors duration-300"
         onClick={(e) => {
-          e.preventDefault()
-          handleCreateItem()
+          e.preventDefault();
+          handleCreateItem();
         }}
       >
         <Plus />
