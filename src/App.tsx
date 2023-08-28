@@ -7,10 +7,10 @@ import { Item } from "./components/Item";
 
 interface ItemsArrayProps {
   id: Key | null | undefined;
-  name: string,
-  quantity: number,
-  typeOfQuantity: string,
-  category: string
+  name: string;
+  quantity: number;
+  typeOfQuantity: string;
+  category: string;
 }
 
 export function App() {
@@ -20,11 +20,11 @@ export function App() {
   const [itemCategory, setItemCategory] = useState("");
 
   const [items, setItems] = useState<ItemsArrayProps[]>([]);
-  const selectRef = useRef(null)
+  const selectRef = useRef(null);
 
   function handleCreateItem() {
     if (itemName === "" || itemQuantity < 1 || itemCategory === "") {
-      alert('Preencha todos os campos, por favor!')
+      alert("Preencha todos os campos, por favor!");
       return;
     }
 
@@ -37,12 +37,12 @@ export function App() {
     };
 
     setItems([...items, newItem]);
-    setItemName("")
-    setItemQuantity(1)
-    setItemTypeOfQuantity("unidade")
-    setItemCategory("")
+    setItemName("");
+    setItemQuantity(1);
+    setItemTypeOfQuantity("unidade");
+    setItemCategory("");
 
-    selectRef.current.clearValue()
+    selectRef.current.clearValue();
   }
 
   return (
@@ -71,6 +71,13 @@ export function App() {
         </header>
 
         <div className="mt-8 flex flex-col gap-3">
+          {items.length === 0 && (
+            <p className="text-gray-200 text-center mx-auto text-sm w-[80%]">
+              Você ainda não adicionou nenhum item à sua lista de compras.
+              Que tal adicionar agora?
+            </p>
+          )}
+
           {items.map((item) => (
             <Item
               key={item.id}
