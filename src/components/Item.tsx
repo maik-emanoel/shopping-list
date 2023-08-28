@@ -1,7 +1,14 @@
 import { Apple, Check, MoreVertical } from "lucide-react";
 import { useState } from "react";
 
-export function Item() {
+export interface ItemProps {
+  itemName: string
+  itemQuantity: number
+  itemTypeOfQuantity: string
+  itemCategory: string
+}
+
+export function Item({itemName, itemQuantity, itemTypeOfQuantity, itemCategory}: ItemProps) {
   const [isChecked, setIsChecked] = useState(false);
 
   function handleChange() {
@@ -29,10 +36,10 @@ export function Item() {
         </span>
 
         <div className="flex flex-col">
-          <span className="text-gray-100 font-bold leading-5 text-sm">Maçã</span>
+          <span className="text-gray-100 font-bold leading-5 text-sm">{itemName}</span>
           <p className="text-gray-200 text-xs">
-            <span>2 </span>
-            <span>unidades</span>
+            <span>{itemQuantity} </span>
+            <span>{itemTypeOfQuantity}</span>
           </p>
         </div>
       </div>
@@ -40,7 +47,7 @@ export function Item() {
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-1 py-2 px-4 rounded-full text-orange bg-orangeDark">
           <Apple size={16} />
-          <span className="font-semibold text-xs">fruta</span>
+          <span className="font-semibold text-xs">{itemCategory}</span>
         </div>
 
         <MoreVertical className="text-purpleLight"/>
