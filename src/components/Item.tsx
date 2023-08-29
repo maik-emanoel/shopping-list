@@ -1,4 +1,12 @@
-import { Apple, Check, MoreVertical } from "lucide-react";
+import {
+  Apple,
+  Beef,
+  Carrot,
+  Check,
+  Milk,
+  MoreVertical,
+  Sandwich,
+} from "lucide-react";
 import { useState } from "react";
 import { touchIsSupported } from "../utils/touchUtil";
 
@@ -19,6 +27,43 @@ export function Item({
 
   function handleChange() {
     setIsChecked((prevState) => !prevState);
+  }
+
+  let icon;
+  let textColor;
+  let bgDarkColor;
+
+  switch (itemCategory) {
+    case "padaria":
+      icon = <Sandwich size={16} className="text-yellow" />;
+      textColor = "text-yellow";
+      bgDarkColor = "bg-yellowDark";
+      break;
+    case "legume":
+      icon = <Carrot size={16} className="text-green" />;
+      textColor = "text-green";
+      bgDarkColor = "bg-greenDark";
+      break;
+    case "carne":
+      icon = <Beef size={16} className="text-pink" />;
+      textColor = "text-pink";
+      bgDarkColor = "bg-pinkDark";
+      break;
+    case "fruta":
+      icon = <Apple size={16} className="text-orange" />;
+      textColor = "text-orange";
+      bgDarkColor = "bg-orangeDark";
+      break;
+    case "bebida":
+      icon = <Milk size={16} className="text-blue" />;
+      textColor = "text-blue";
+      bgDarkColor = "bg-blueDark";
+      break;
+    default:
+      icon = <Apple size={16} className="text-orange" />;
+      textColor = "text-orange";
+      bgDarkColor = "bg-orangeDark";
+      break;
   }
 
   return (
@@ -58,14 +103,18 @@ export function Item({
           </span>
           <p className="text-gray-200 text-xs">
             <span>{itemQuantity} </span>
-            <span>{itemQuantity > 1 ? itemTypeOfQuantity + 's' : itemTypeOfQuantity}</span>
+            <span>
+              {itemQuantity > 1 ? itemTypeOfQuantity + "s" : itemTypeOfQuantity}
+            </span>
           </p>
         </div>
       </div>
 
       <div className="flex items-center gap-3">
-        <div className="flex items-center gap-1 py-2 px-4 rounded-full text-orange bg-orangeDark">
-          <Apple size={16} />
+        <div
+          className={`flex items-center gap-1 py-2 px-4 rounded-full ${textColor} ${bgDarkColor}`}
+        >
+          {icon}
           <span className="font-semibold text-xs">{itemCategory}</span>
         </div>
 
