@@ -39,7 +39,7 @@ export function App() {
     setItems([newItem ,...items]);
     setItemName("");
     setItemQuantity(1);
-    setItemTypeOfQuantity("unidade");
+    setItemTypeOfQuantity(prevState => prevState);
     setItemCategory("");
 
     selectRef.current.clearValue();

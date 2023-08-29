@@ -58,7 +58,7 @@ export function Item({
           </span>
           <p className="text-gray-200 text-xs">
             <span>{itemQuantity} </span>
-            <span>{itemTypeOfQuantity}</span>
+            <span>{itemQuantity > 1 ? itemTypeOfQuantity + 's' : itemTypeOfQuantity}</span>
           </p>
         </div>
       </div>
