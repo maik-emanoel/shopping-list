@@ -150,6 +150,7 @@ export function Form({
                 }`,
               menuList: () =>
                 "divide-y-[1px] divide-gray-300 border border-gray-300 rounded-md mt-1",
+              indicatorsContainer: () => "pointer-events-none",
             }}
             defaultValue={optionsQuantity[0]}
             onMenuOpen={() => setIsSelectQuantityOpen(true)}
