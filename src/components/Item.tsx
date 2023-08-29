@@ -1,5 +1,6 @@
 import { Apple, Check, MoreVertical } from "lucide-react";
 import { useState } from "react";
+import { touchIsSupported } from "../utils/touchUtil";
 
 export interface ItemProps {
   itemName: string
@@ -22,7 +23,12 @@ export function Item({itemName, itemQuantity, itemTypeOfQuantity, itemCategory}:
           <input
             type="checkbox"
             id="checkbox"
-            className="appearance-none w-4 h-4 border-[2px] border-purpleNormal rounded-sm checked:border-green checked:bg-green"
+            data-istouchsupported={touchIsSupported}
+            className="appearance-none w-4 h-4 border-[2px] border-purpleNormal rounded-sm checked:border-success checked:bg-success active:scale-95 transition-colors duration-100
+            data-[istouchsupported=false]:hover:bg-purpleDark 
+            data-[istouchsupported=false]:hover:checked:bg-successLight 
+            data-[istouchsupported=false]:hover:checked:border-successLight
+            "
             onChange={handleChange}
             checked={isChecked}
           />
