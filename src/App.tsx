@@ -36,7 +36,7 @@ export function App() {
       category: itemCategory,
     };
 
-    setItems([...items, newItem]);
+    setItems([newItem ,...items]);
     setItemName("");
     setItemQuantity(1);
     setItemTypeOfQuantity("unidade");
