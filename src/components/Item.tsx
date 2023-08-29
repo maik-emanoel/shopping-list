@@ -3,13 +3,18 @@ import { useState } from "react";
 import { touchIsSupported } from "../utils/touchUtil";
 
 export interface ItemProps {
-  itemName: string
-  itemQuantity: number
-  itemTypeOfQuantity: string
-  itemCategory: string
+  itemName: string;
+  itemQuantity: number;
+  itemTypeOfQuantity: string;
+  itemCategory: string;
 }
 
-export function Item({itemName, itemQuantity, itemTypeOfQuantity, itemCategory}: ItemProps) {
+export function Item({
+  itemName,
+  itemQuantity,
+  itemTypeOfQuantity,
+  itemCategory,
+}: ItemProps) {
   const [isChecked, setIsChecked] = useState(false);
 
   function handleChange() {
@@ -17,7 +22,10 @@ export function Item({itemName, itemQuantity, itemTypeOfQuantity, itemCategory}:
   }
 
   return (
-    <div className="p-4 bg-gray-400 border-[1px] border-gray-300 rounded-lg flex items-center justify-between">
+    <div
+      className="p-4 bg-gray-400 border-[1px] border-gray-300 rounded-lg flex items-center justify-between data-[ischecked=true]:brightness-75"
+      data-ischecked={isChecked}
+    >
       <div className="flex items-center gap-4">
         <span className="relative">
           <input
@@ -42,7 +50,12 @@ export function Item({itemName, itemQuantity, itemTypeOfQuantity, itemCategory}:
         </span>
 
         <div className="flex flex-col">
-          <span className="text-gray-100 font-bold leading-5 text-sm">{itemName}</span>
+          <span
+            className="text-gray-100 font-bold leading-5 text-sm data-[ischecked=true]:line-through data-[ischecked=true]:font-normal"
+            data-ischecked={isChecked}
+          >
+            {itemName}
+          </span>
           <p className="text-gray-200 text-xs">
             <span>{itemQuantity} </span>
             <span>{itemTypeOfQuantity}</span>
@@ -56,7 +69,7 @@ export function Item({itemName, itemQuantity, itemTypeOfQuantity, itemCategory}:
           <span className="font-semibold text-xs">{itemCategory}</span>
         </div>
 
-        <MoreVertical className="text-purpleLight"/>
+        <MoreVertical className="text-purpleLight" />
       </div>
     </div>
   );
