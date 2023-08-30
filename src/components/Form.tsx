@@ -103,6 +103,7 @@ export function Form({
           className="h-10 p-3 bg-gray-500 rounded-md border border-gray-300 outline-none focusInput"
           onChange={(e) => setItemName(e.target.value)}
           value={itemName}
+          maxLength={32}
         />
       </div>
 
