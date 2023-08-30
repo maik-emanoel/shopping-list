@@ -6,6 +6,7 @@ import {
   Milk,
   MoreVertical,
   Sandwich,
+  Trash2,
 } from "lucide-react";
 import { useState } from "react";
 import { touchIsSupported } from "../utils/touchUtil";
@@ -15,8 +16,9 @@ export interface ItemProps {
   itemQuantity: number;
   itemTypeOfQuantity: string;
   itemCategory: string;
-  checked: boolean,
+  checked: boolean;
   onCheckChange: (newCheckedState: boolean) => void;
+  handleDeleteItem: () => void;
 }
 
 export function Item({
@@ -25,9 +27,11 @@ export function Item({
   itemTypeOfQuantity,
   itemCategory,
   checked,
-  onCheckChange
+  onCheckChange,
+  handleDeleteItem,
 }: ItemProps) {
   const [isChecked, setIsChecked] = useState(checked);
+  const [optionsIsVisible, setOPtionsIsVisible] = useState(false);
 
   function handleChange() {
     const newCheckedState = !isChecked;
@@ -74,7 +78,7 @@ export function Item({
 
   return (
     <div
-      className="p-4 bg-gray-400 border-[1px] border-gray-300 rounded-lg flex items-center justify-between data-[ischecked=true]:brightness-75"
+      className="p-4 bg-gray-400 border-[1px] border-gray-300 rounded-lg flex items-center justify-between data-[ischecked=true]:bg-gray-500 data-[ischecked]:border-gray-400"
       data-ischecked={isChecked}
     >
       <div className="flex items-center gap-4">
@@ -116,15 +120,41 @@ export function Item({
         </div>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 select-none">
         <div
-          className={`flex items-center gap-1 py-2 px-4 rounded-full ${textColor} ${bgDarkColor}`}
+          className={`flex items-center gap-1 py-2 px-4 rounded-full data-[ischecked=true]:brightness-75 ${textColor} ${bgDarkColor}`}
+          data-ischecked={isChecked}
         >
           {icon}
           <span className="font-semibold text-xs">{itemCategory}</span>
         </div>
 
-        <MoreVertical className="text-purpleLight" />
+        <div
+          className="relative"
+          onClick={() => {
+            setOPtionsIsVisible((prevState) => !prevState);
+          }}
+        >
+          <MoreVertical className="text-purpleLight" />
+          {optionsIsVisible && (
+            <div
+              className="flex flex-col gap-1 absolute text-gray-100 bg-gray-500 border border-gray-400 rounded-md overflow-hidden right-0 top-[110%]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <span
+                className="flex items-center gap-2 text-sm p-3 cursor-pointer border border-gray-400 
+                data-[istouchsupported=false]:hover:bg-gray-300 
+                data-[istouchsupported=false]:hover:border-gray-300
+                "
+                onClick={handleDeleteItem}
+                data-istouchsupported={touchIsSupported}
+              >
+                <Trash2 size={16} />
+                Excluir
+              </span>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
