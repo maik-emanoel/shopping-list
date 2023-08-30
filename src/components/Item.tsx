@@ -8,7 +8,7 @@ import {
   Sandwich,
   Trash2,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { touchIsSupported } from "../utils/touchUtil";
 
 export interface ItemProps {
@@ -32,6 +32,8 @@ export function Item({
 }: ItemProps) {
   const [isChecked, setIsChecked] = useState(checked);
   const [optionsIsVisible, setOPtionsIsVisible] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const optionsContainerRef = useRef<any>(null)
 
   function handleChange() {
     const newCheckedState = !isChecked;
@@ -75,6 +77,24 @@ export function Item({
       bgDarkColor = "bg-orangeDark";
       break;
   }
+
+  function handleClickOutside(event: MouseEvent) {
+    if (optionsContainerRef.current && !optionsContainerRef.current.contains(event.target)) {
+      setOPtionsIsVisible(false);
+    }
+  }
+
+  useEffect(() => {
+    if (optionsIsVisible) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [optionsIsVisible]);
 
   return (
     <div
@@ -134,6 +154,7 @@ export function Item({
           onClick={() => {
             setOPtionsIsVisible((prevState) => !prevState);
           }}
+          ref={optionsContainerRef}
         >
           <MoreVertical className="text-purpleLight" />
           {optionsIsVisible && (
