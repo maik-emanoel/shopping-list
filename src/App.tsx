@@ -66,6 +66,11 @@ export function App() {
     setItems(updatedItems);
   }
 
+  function handleDeleteItem(itemId: Key | null | undefined) {
+    const updatedItems = items.filter(item => item.id !== itemId)
+    setItems(updatedItems)
+  }
+
   return (
     <>
       <img
@@ -108,6 +113,7 @@ export function App() {
               itemCategory={item.category}
               checked={item.checked}
               onCheckChange={(newCheckedState: boolean) => handleCheckChange(item.id, newCheckedState)}
+              handleDeleteItem={() => handleDeleteItem(item.id)}
             />
           ))}
         </div>
