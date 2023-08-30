@@ -142,7 +142,7 @@ export function Item({
 
       <div className="flex items-center gap-3 select-none">
         <div
-          className={`flex items-center gap-1 py-2 px-4 rounded-full data-[ischecked=true]:brightness-75 ${textColor} ${bgDarkColor}`}
+          className={`flex items-center gap-1 py-2 px-4 sm:py-1 sm:px-2 rounded-full data-[ischecked=true]:brightness-75 ${textColor} ${bgDarkColor}`}
           data-ischecked={isChecked}
         >
           {icon}
