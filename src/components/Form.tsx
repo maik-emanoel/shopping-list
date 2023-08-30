@@ -95,7 +95,7 @@ export function Form({
 
   return (
     <form className="text-white flex items-center gap-3 md:flex-col">
-      <div className="group flex flex-col gap-2 flex-1 md:w-full">
+      <div className="group flex flex-col gap-2 w-full">
         <Label name="Item" htmlFor="itemNameInput" />
         <input
           type="text"
@@ -106,7 +106,7 @@ export function Form({
         />
       </div>
 
-      <div className="flex items-center gap-3 md:w-full">
+      <div className="flex items-center gap-3 w-full">
         <div className="group max-w-[150px] w-full flex flex-col gap-2">
           <Label name="Quantidade" htmlFor="quantity" />
 
