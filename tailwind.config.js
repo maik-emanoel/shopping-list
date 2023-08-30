@@ -47,6 +47,14 @@ export default {
   
         'sm': {'max': '500px'},
         // => @media (max-width: 425px) { ... }
+      },
+      animation: {
+        appear: 'appear .9s backwards'
+      },
+      keyframes: {
+        appear: {
+          '0%': { opacity: '0', scale: '.95' }
+        }
       }
     },
   },
