@@ -98,7 +98,7 @@ export function Item({
 
   return (
     <div
-      className="p-4 bg-gray-400 border-[1px] border-gray-300 rounded-lg flex items-center justify-between data-[ischecked=true]:bg-gray-500 data-[ischecked]:border-gray-400"
+      className="p-4 bg-gray-400 border-[1px] border-gray-300 rounded-lg flex items-center justify-between data-[ischecked=true]:bg-gray-500 data-[ischecked]:border-gray-400 animate-appear"
       data-ischecked={isChecked}
     >
       <div className="flex items-center gap-4">
