@@ -15,6 +15,8 @@ export interface ItemProps {
   itemQuantity: number;
   itemTypeOfQuantity: string;
   itemCategory: string;
+  checked: boolean,
+  onCheckChange: (newCheckedState: boolean) => void;
 }
 
 export function Item({
@@ -22,11 +24,15 @@ export function Item({
   itemQuantity,
   itemTypeOfQuantity,
   itemCategory,
+  checked,
+  onCheckChange
 }: ItemProps) {
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(checked);
 
   function handleChange() {
-    setIsChecked((prevState) => !prevState);
+    const newCheckedState = !isChecked;
+    setIsChecked(newCheckedState);
+    onCheckChange(newCheckedState);
   }
 
   let icon;
