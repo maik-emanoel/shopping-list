@@ -156,14 +156,14 @@ export function Item({
           }}
           ref={optionsContainerRef}
         >
-          <MoreVertical className="text-purpleLight" />
+          <MoreVertical className="text-purpleLight cursor-pointer active:scale-95" />
           {optionsIsVisible && (
             <div
-              className="flex flex-col gap-1 absolute text-gray-100 bg-gray-500 border border-gray-400 rounded-md overflow-hidden right-0 top-[110%]"
+              className="flex flex-col gap-1 absolute text-gray-100 bg-gray-500 border border-gray-400 rounded-md overflow-hidden right-0 top-[110%] shadow-sm shadow-gray-400"
               onClick={(e) => e.stopPropagation()}
             >
               <span
-                className="flex items-center gap-2 text-sm p-3 cursor-pointer border border-gray-400 
+                className="flex items-center gap-2 text-sm p-3 cursor-pointer border border-gray-400 animate-[appear_.3s_backwards]
                 data-[istouchsupported=false]:hover:bg-gray-300 
                 data-[istouchsupported=false]:hover:border-gray-300
                 "
