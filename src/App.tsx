@@ -27,7 +27,8 @@ export function App() {
   const [items, setItems] = useState<ItemsArrayProps[]>(
     loadItemsFromLocalStorage()
   );
-  const selectRef = useRef(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const selectRef = useRef<any>(null);
 
   function handleCreateItem() {
     if (itemName === "" || itemQuantity < 1 || itemCategory === "") {
@@ -50,7 +51,10 @@ export function App() {
     setItemTypeOfQuantity((prevState) => prevState);
     setItemCategory("");
 
-    selectRef.current.clearValue();
+
+    if (selectRef.current) {
+      selectRef.current.clearValue();
+    }
   }
 
   useEffect(() => {
