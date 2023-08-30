@@ -1,16 +1,18 @@
-import { Key, useRef, useState } from "react";
+import { Key, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import imgCover from "./assets/img-cover.png";
 import { Form } from "./components/Form";
 import { Item } from "./components/Item";
+import { loadItemsFromLocalStorage, saveItemsToLocalStorage } from "./utils/saveItems";
 
-interface ItemsArrayProps {
+export interface ItemsArrayProps {
   id: Key | null | undefined;
   name: string;
   quantity: number;
   typeOfQuantity: string;
   category: string;
+  checked: boolean
 }
 
 export function App() {
@@ -19,7 +21,7 @@ export function App() {
   const [itemTypeOfQuantity, setItemTypeOfQuantity] = useState("unidade");
   const [itemCategory, setItemCategory] = useState("");
 
-  const [items, setItems] = useState<ItemsArrayProps[]>([]);
+  const [items, setItems] = useState<ItemsArrayProps[]>(loadItemsFromLocalStorage());
   const selectRef = useRef(null);
 
   function handleCreateItem() {
@@ -34,6 +36,7 @@ export function App() {
       quantity: itemQuantity,
       typeOfQuantity: itemTypeOfQuantity,
       category: itemCategory,
+      checked: false
     };
 
     setItems([newItem ,...items]);
@@ -43,6 +46,24 @@ export function App() {
     setItemCategory("");
 
     selectRef.current.clearValue();
+  }
+
+  useEffect(() => {
+    saveItemsToLocalStorage(items)
+  }, [items])
+
+  function handleCheckChange(itemId: Key | null | undefined, newCheckedState: boolean) {
+    const updatedItems = items.map((item) => {
+      if (item.id === itemId) {
+        return {
+          ...item,
+          checked: newCheckedState,
+        };
+      }
+      return item;
+    });
+
+    setItems(updatedItems);
   }
 
   return (
@@ -85,6 +106,8 @@ export function App() {
               itemQuantity={item.quantity}
               itemTypeOfQuantity={item.typeOfQuantity}
               itemCategory={item.category}
+              checked={item.checked}
+              onCheckChange={(newCheckedState: boolean) => handleCheckChange(item.id, newCheckedState)}
             />
           ))}
         </div>
