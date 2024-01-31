@@ -49,7 +49,7 @@ export default {
         // => @media (max-width: 425px) { ... }
       },
       animation: {
-        appear: 'appear .9s backwards'
+        appear: 'appear .5s backwards'
       },
       keyframes: {
         appear: {
